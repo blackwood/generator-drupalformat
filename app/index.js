@@ -130,5 +130,3 @@ DrupalformatGenerator.prototype.app = function app() {
     this.copy('LICENSE.txt', 'LICENSE.txt');
   }
 };
-
-module.exports = DrupalformatGenerator;
