@@ -18,13 +18,7 @@ var DrupalformatGenerator = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      "
-         ,--.                              ,--. ,---.                                  ,--.   \n
-       ,-|  |,--.--.,--.,--. ,---.  ,--,--.|  |/  .-' ,---. ,--.--.,--,--,--. ,--,--.,-'  '-. \n
-      ' .-. ||  .--'|  ||  || .-. |' ,-.  ||  ||  `-,| .-. ||  .--'|        |' ,-.  |'-.  .-' \n
-      \\ `-' ||  |   '  ''  '| '-' '\\ '-'  ||  ||  .-'' '-' '|  |   |  |  |  |\\ '-'  |  |  |   \n
-       `---' `--'    `----' |  |-'  `--`--'`--'`--'   `---' `--'   `--`--`--' `--`--'  `--'   \n
-                            `--'                                                              "
+      'Welcome to the stylish Drupalformat generator!'
     ));
 
     var prompts = [{
