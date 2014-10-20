@@ -36,7 +36,7 @@ function <%= moduleName %>_theme() {
  * Implements hook_library().
  */
 function <%= moduleName %>_library() {
-  $library = libraries_get_path('<%= libraryPath %>');
+  $library = libraries_get_path('<%= libraryName %>');
 
   $libraries['<%= pluginName %>'] = array(
     'title' => '<%= pluginProper %>',
