@@ -83,26 +83,6 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-  writing: {
-    app: function () {
-      this.dest.mkdir('app');
-      this.dest.mkdir('app/templates');
-
-      this.src.copy('_package.json', 'package.json');
-      this.src.copy('_bower.json', 'bower.json');
-    },
-
-    projectfiles: function () {
-      this.src.copy('editorconfig', '.editorconfig');
-      this.src.copy('jshintrc', '.jshintrc');
-    }
-  },
-
-  end: function () {
-    this.installDependencies();
-  }
-});
-
 DrupalformatGenerator.prototype.app = function app() {
   var mn = this.moduleName;
 
