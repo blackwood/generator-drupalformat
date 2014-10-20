@@ -8,7 +8,7 @@
   Drupal.behaviors.<%= moduleName %> = {
     attach: function(context, settings) {
 
-      for (var parent in settings.<%= moduleProper %>) {
+      for (var parent in settings.<%= moduleName %>) {
         // Parent instance.
         var par = $('#' + parent);
 

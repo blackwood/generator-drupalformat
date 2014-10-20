@@ -115,7 +115,7 @@ DrupalformatGenerator.prototype.app = function app() {
   this.template('modules/ui/_template_ui.info', 'modules/ui/' + mn + '_ui.info');
   this.template('modules/ui/_template_ui.module', 'modules/ui/' + mn + '_ui.module');
   this.template('modules/views/_template_views.info', 'modules/views/' + mn + '_views.info');
-  this.template('modules/views/_template_views.module', 'modules/views/' + mn + '+_views.module');
+  this.template('modules/views/_template_views.module', 'modules/views/' + mn + '_views.module');
   this.template('modules/views/_template_views.views.inc', 'modules/views/' + mn + '_views.views.inc');
   this.template('modules/views/_template_views_plugin_pager__template.inc', 'modules/views/' + mn + '_views_plugin_pager_' + mn + '.inc');
   this.template('modules/views/_template_views_plugin_style__template.inc', 'modules/views/' + mn + '_views_plugin_style_' + mn + '.inc');
