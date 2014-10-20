@@ -76,6 +76,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.pluginName = props.pluginName;
     this.pluginProper  = props.pluginProper ;
     this.pluginSite = props.pluginSite;
+    this.requiredjQueryVersion = props.requiredjQueryVersion;
     this.relativeScriptpath = props.relativeScriptpath;
     this.relativeStylepath = props.relativeStylepath;
     this.license = props.license;
