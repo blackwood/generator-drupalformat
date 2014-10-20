@@ -1,4 +1,4 @@
-name = <%= moduleName %> UI
+name = <%= moduleProper %> UI
 description = "Provides user interface for <%= moduleProper %> variable management."
 core = 7.x
 package = <%= moduleProper %>
