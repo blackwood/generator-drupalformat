@@ -80,8 +80,18 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.relativeScriptpath = props.relativeScriptpath;
     this.relativeStylepath = props.relativeStylepath;
     this.license = props.license;
+
+    this.settingProper "Test Name";
+    this.settingDesc = "This Setting Name";
+    this.settingName = "testName";
+    this.settingType = "boolean";
+    this.settingFunction = "test_name";
+    this.settingDefault = "FALSE";
+
     cb();
+
   }.bind(this));
+
 };
 
 DrupalformatGenerator.prototype.app = function app() {
