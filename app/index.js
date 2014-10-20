@@ -10,7 +10,6 @@ var util = require('util'),
 
 var DrupalformatGenerator = module.exports = function DrupalformatGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
-  this.moduleName = path.basename(process.cwd());
 
   this.on('end', function () {
     this.installDependencies({ skipInstall: true });
@@ -40,6 +39,9 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
 
   var prompts = [{
+    name: 'moduleName',
+    message: 'Module Name: (should be the same as folder):'
+  },{
     name: 'moduleProper',
     message: 'Proper name for your Module:'
   },{
@@ -106,7 +108,7 @@ DrupalformatGenerator.prototype.app = function app() {
   this.template('_template.install', mn + '.install');
   this.template('_template.module', mn + '.module');
   this.template('_template.variable.inc', mn + '.variable.inc');
-  this.template('includes/js/_template.settings.js', 'includes/js/' +  + '.settings.js');
+  this.template('includes/js/_template.settings.js', 'includes/js/' + mn + '.settings.js');
   this.template('modules/fields/_template_fields.info', 'modules/fields/' + mn + '_fields.info');
   this.template('modules/fields/_template_fields.module', 'modules/fields/' + mn + '_fields.module');
   this.template('modules/ui/_template_ui.admin.inc', 'modules/ui/' + mn + '_ui.admin.inc');
