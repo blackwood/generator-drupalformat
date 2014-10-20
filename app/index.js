@@ -1,8 +1,12 @@
 'use strict';
-var util = require('util');
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var yosay = require('yosay');
+var util = require('util'),
+    path = require('path'),
+    yeoman = require('yeoman-generator'),
+    yosay = require('yosay'),
+    fs = require('fs'),
+    _ = require('lodash'),
+    _s = require('underscore.string'),
+    pluralize = require('pluralize');
 
 var DrupalformatGenerator = yeoman.generators.Base.extend({
   initializing: function () {
