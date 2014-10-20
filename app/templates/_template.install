@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * <%= moduleName %>.install
+ */
+
+/**
+ * Implements hook_install().
+ */
+function <%= moduleName %>_install() {
+  // Add default optionset.
+  variable_set('<%= moduleName %>_settings_default', '<%= moduleName %>_default');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function <%= moduleName %>_uninstall() {
+  $query = 'SELECT name FROM {variable} WHERE name LIKE :name';
+  $results = db_query($query, array(':name' => db_like('<%= moduleName %>_') . '%'))->fetchAll();
+
+  foreach ($results as $result) {
+    // Clean up stored variables.
+    variable_del($result->name);
+  }
+}

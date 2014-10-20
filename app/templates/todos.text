@@ -1,0 +1,26 @@
+@TODO
+
+Vars to declare
+
+the reserved word 'carousel' in functions should be changed to 'parent'
+
+moduleName - machine name for module
+moduleProper - Proper name for module
+libraryPath - name of library folder in sites/all/libraries
+pluginName - machine name for plugin/library
+pluginProper - Proper name for plugin/library
+pluginSite - url for plugin website (repo or external)
+relativeScriptpath - inside library folder, the relative path to the js file (iteratable)
+relativeStylepath - inside library folder, the relative path to the css file (iteratable)
+requiredjQueryVersion
+iterable group [
+    settingProper (proper name for setting)
+    settingDesc (describe the module)
+    settingName (as it appears in config object),
+        -reuse in initialization object?
+    settingType (int, boolean) and 'number' or 'boolean' in _template.variable.inc
+        -note: apply parenthesis automatically, strings don't need treatment,
+    settingFunction (machine_name style)
+    settingDefault
+        the value, represented in PHP (TRUE, FALSE, 200 etc.)
+]

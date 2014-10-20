@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * <%= moduleName %>_ui.module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function <%= moduleName %>_ui_menu() {
+  $items['admin/config/user-interface/<%= moduleName %>'] = array(
+    'title' => '<%= moduleProper %>',
+    'description' => '<%= moduleProper %> instance settings list.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('<%= moduleName %>_settings_form'),
+    'access arguments' => array('administer <%= moduleName %> settings'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => '<%= moduleName %>_ui.admin.inc',
+  );
+  $items['admin/config/user-interface/<%= moduleName %>/%'] = array(
+    'title' => '<%= moduleProper %> Instance Settings',
+    'description' => 'List instance settings.',
+    'page callback' => '<%= moduleName %>_instance_settings_form',
+    'page arguments' => array(4),
+    'access arguments' => array('administer <%= moduleName %> settings'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => '<%= moduleName %>_ui.admin.inc',
+  );
+  $items['admin/config/user-interface/<%= moduleName %>/import'] = array(
+    'title' => 'Import Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('<%= moduleName %>_variable_settings_import_form'),
+    'access arguments' => array('administer <%= moduleName %> settings'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => '<%= moduleName %>_ui.admin.inc',
+  );
+  $items['admin/config/user-interface/<%= moduleName %>/%/export'] = array(
+    'title' => 'Export Settings',
+    'page callback' => '<%= moduleName %>_export_instance_settings',
+    'page arguments' => array(4),
+    'access arguments' => array('administer <%= moduleName %> settings'),
+    'type' => MENU_CALLBACK,
+    'file' => '<%= moduleName %>l_ui.admin.inc',
+  );
+  $items['admin/config/user-interface/<%= moduleName %>/%/delete/%'] = array(
+    'title' => 'Delete Settings',
+    'page callback' => '<%= moduleName %>_delete_instance_settings',
+    'page arguments' => array(4, 6),
+    'access arguments' => array('administer <%= moduleName %> settings'),
+    'type' => MENU_CALLBACK,
+    'file' => '<%= moduleName %>_ui.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function <%= moduleName %>_ui_permission() {
+  return array(
+    'administer <%= moduleName %> settings' => array(
+      'title' => t('Administer <%= moduleProper %> settings'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_variable_settings_form_alter().
+ */
+function <%= moduleName %>_ui_variable_settings_form_alter(&$form, $form_state, $form_id) {
+  if (isset($form_state['build_info']['args'][0]) && $form_state['build_info']['args'][0] == '<%= moduleName %>') {
+    $instance = $form_state['build_info']['args'][1];
+
+    // Include additional submit handler to update settings cache.
+    $form['#submit'][] = '<%= moduleName %>_variable_settings_submit';
+
+    // This needs a graceful solution... =/
+    $settings = <%= moduleName %>_ui_build_instance_settings($instance, $form['#variable_edit_form']);
+    foreach ($form as $key => $component) {
+      if (strpos($key, '[instance_id]') !== FALSE) {
+        $form[$key] = $settings[$key];
+      }
+    }
+  }
+}
+
+/**
+ * Format variable settings form to only display our
+ * instance variables.
+ */
+function <%= moduleName %>_ui_build_instance_settings($instance, $settings) {
+  module_load_include('form.inc', 'variable');
+
+  foreach ($settings as $key => $setting) {
+    $variable = variable_get_child($setting, $instance);
+    $form[$setting][$variable['name']] = variable_form_element($variable);
+
+    if ($setting == '<%= moduleName %>_navigation_text_[instance_id]') {
+      $form[$setting][$variable['name']][0]['#title'] = t('Previous');
+      $form[$setting][$variable['name']][1]['#title'] = t('Next');
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Helper function, return list of setting variables.
+ */
+function _<%= moduleName %>_return_setting_vars() {
+  $query = 'SELECT name FROM {variable} WHERE name LIKE :name';
+  $results = db_query($query, array(':name' => db_like('<%= moduleName %>_') . '%'))->fetchAll();
+
+  return $results;
+}

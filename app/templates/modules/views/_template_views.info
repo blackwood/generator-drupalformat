@@ -1,0 +1,13 @@
+name = <%= moduleProper %> Views
+description = "Provides <%= pluginProper %> integration into Drupal Views."
+core = 7.x
+package = <%= moduleProper %>
+
+dependencies[] = views
+dependencies[] = <%= moduleName %>
+
+files[] = <%= moduleName %>_views.module
+files[] = <%= moduleName %>_views.views.inc
+files[] = <%= moduleName %>_views_plugin_style_<%= moduleName %>.inc
+files[] = <%= moduleName %>_views_plugin_pager_<%= moduleName %>.inc
+

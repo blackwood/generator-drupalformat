@@ -1,0 +1,148 @@
+<?php
+
+/**
+ * @file
+ * <%= moduleName %>.module
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function <%= moduleName %>_theme() {
+  return array(
+    '<%= moduleName %>' => array(
+      'variables' => array('items' => array(), 'settings' => array()),
+      'template' => 'theme/<%= moduleName %>',
+      'file' => 'theme/<%= moduleName %>.theme.inc',
+    ),
+    '<%= moduleName %>_list' => array(
+      'variables' => array('items' => array(), 'settings' => array()),
+      'file' => 'theme/<%= moduleName %>.theme.inc',
+    ),
+    '<%= moduleName %>_list_item' => array(
+      'variables' => array('item' => array(), 'settings' => array()),
+      'file' => 'theme/<%= moduleName %>.theme.inc',
+    ),
+    '<%= moduleName %>_admin_settings_form' => array(
+      'render element' => 'form',
+    ),
+    '<%= moduleName %>_admin_settings_form_fields' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+/**
+ * Implements hook_library().
+ */
+function <%= moduleName %>_library() {
+  $library = libraries_get_path('<%= libraryPath %>');
+
+  $libraries['<%= pluginName %>'] = array(
+    'title' => '<%= pluginProper %>',
+    'website' => '<%= pluginSite %>',
+    'version' => array(),
+    'js' => array(
+      $library . '<%= relativeScriptpath %>' => array(
+        'scope' => 'footer',
+      ),
+    ),
+    'css' => array(
+      $library . '<%= relativeStylepath %>' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Loads parent instance settings.
+ *
+ * @param string $instance
+ *  Settings group machine name.
+ *
+ * @param string $parent
+ *  Parent HTML selector.
+ */
+function <%= moduleName %>_initiate_instance($instance, $parent) {
+  $version = variable_get('jquery_update_jquery_version', FALSE);
+  if (!$version || $version == '<%= requiredjQueryVersion %>') {
+    drupal_set_message(t('The installed jQuery version is not supported by <%= moduleProper %>.'), 'error', FALSE);
+  }
+
+  // Include library.
+  drupal_add_library('<%= moduleName %>', '<%= pluginName %>');
+
+  // Load parent settings from the instance id.
+  $settings = _<%= moduleName %>_return_parent_instance_settings($instance);
+
+  // Provide alter for instance settings.
+  drupal_alter('<%= moduleName %>_settings', $settings, $instance);
+
+  // Include instance settings.
+  drupal_add_js(array(
+    '<%= pluginName %>' => array(
+      $parent => array(
+        'settings' => $settings,
+        'views' => array(
+          'ajax_pagination' => variable_get('<%= moduleName %>_override_ajax_pagination_' . $instance)
+        ),
+      )
+    ),
+  ),
+  'setting');
+  drupal_add_js(drupal_get_path('module', '<%= moduleName %>') . '/includes/js/<%= moduleName %>.settings.js', array('scope' => 'footer', 'type' => 'file'));
+}
+
+/**
+ * Return <%= pluginProper %> settings array or default.
+ *
+ * @param string $instance
+ *  Parent instance settings machine name.
+ */
+function _<%= moduleName %>_return_parent_instance_settings($instance = '<%= moduleName %>_settings_default') {
+  if ($settings_cache = cache_get('<%= moduleName %>_' . $instance)) {
+    $settings = $settings_cache->data;
+  }
+  else {
+    $function = !module_exists('variable') ? 'variable_get' : 'variable_get_value';
+
+    $settings = array(
+      // Okay, so here's an example of what we need:
+      '<% settingName %>' => <%= settingType %>$function('<%= moduleName %>_<%= settingFunctionName %>_' . $instance),
+
+    );
+
+    // Update settings cache.
+    cache_set('<%= moduleName %>_' . $instance, $settings, 'cache');
+  }
+
+  return $settings;
+}
+
+/**
+ * Return array with key pair.
+ */
+function <%= moduleName %>_instance_callback_list() {
+  $instances = _<%= moduleName %>_return_instances();
+
+  // Format array as callback option list.
+  foreach ($instances as $instance) {
+    $content[$instance->name] = $instance->name;
+  }
+
+  return $content;
+}
+
+/**
+ * Helper function, return active instances by name.
+ */
+function _<%= moduleName %>_return_instances() {
+  $query = 'SELECT name FROM {variable} WHERE name LIKE :name';
+  $results = db_query($query, array(':name' => db_like('<%= moduleName %>_settings_') . '%'))->fetchAll();
+
+  return $results;
+}

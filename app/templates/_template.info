@@ -1,0 +1,7 @@
+name = <%= moduleProper %>
+description = "Provides <%= moduleProper %> integration into Drupal."
+core = 7.x
+package = <%= moduleProper %>
+
+dependencies[] = libraries
+dependencies[] = jquery_update
