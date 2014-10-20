@@ -44,10 +44,10 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     message: 'Proper name for your Module:'
   },{
     name: 'libraryName',
-    message: 'Machine name (folder name) for library:'
+    message: 'Name of the plugin folder in `sites/all/libraries`:'
   },{
     name: 'pluginName',
-    message: 'Arbitrary machine name for plugin:'
+    message: 'Machine name for plugin:'
   },{
     name: 'pluginProper',
     message: 'Proper name for Plugin:'
@@ -60,6 +60,9 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
   },{
     name: 'relativeStylepath',
     message: 'Relative Path inside library to the main CSS file: (ex. /dist/plugin.min.css)',
+  },{
+    name: 'pluginInit',
+    message: 'name of the initialization method (ex. owlCarousel)'
   },{
     name: 'requiredjQueryVersion',
     message: 'Required Main jQuery Version (ex. 1.5, 1.7, etc.)',
@@ -76,6 +79,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.pluginName = props.pluginName;
     this.pluginProper  = props.pluginProper ;
     this.pluginSite = props.pluginSite;
+    this.pluginInit = props.pluginInit;
     this.requiredjQueryVersion = props.requiredjQueryVersion;
     this.relativeScriptpath = props.relativeScriptpath;
     this.relativeStylepath = props.relativeStylepath;
