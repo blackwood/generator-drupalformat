@@ -16,10 +16,17 @@ var DrupalformatGenerator = yeoman.generators.Base.extend({
   prompting: function () {
     var done = this.async();
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the stylish Drupalformat generator!'
-    ));
+  console.log('\n' +
+    '           ____ _____  __ __ _____  ____   _ \n'+
+    '          | _) \| () )|  |  || ()_)/ () \ | |__ \n'+
+    '          |____/|_|\_\ \___/ |_|  /__/\__\|____|\n'+
+    '          ____  ____ _____  __  __   ____  _____ \n'+
+    '         | ===|/ () \| () )|  \/  | / () \|_   _|\n'+
+    '         |__|  \____/|_|\_\|_|\/|_|/__/\__\ |_|  \n'+
+    ' ____  ____  __  _  ____ _____   ____  _____  ____ _____ \n'+
+    '/ (_,`| ===||  \| || ===|| () ) / () \|_   _|/ () \| () )\n'+
+    '\____)|____||_|\__||____||_|\_\/__/\__\ |_|  \____/|_|\_\\n'
+    );
 
     var prompts = [{
       type: 'confirm',
