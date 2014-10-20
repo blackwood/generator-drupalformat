@@ -72,7 +72,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
   this.prompt(prompts, function (props) {
     this.moduleName = props.moduleName;
     this.moduleProper = props.moduleProper;
-    this.libraryPath = props.libraryPath;
+    this.libraryName = props.libraryName;
     this.pluginName = props.pluginName;
     this.pluginProper  = props.pluginProper ;
     this.pluginSite = props.pluginSite;
