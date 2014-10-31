@@ -15,7 +15,7 @@ function _<%= moduleName %>_return_parent_instance_settings($instance = '<%= mod
 
     $settings = array(
         <% _.each(settings, function (setting) { %>
-            '<%= setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= setting.moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
+            '<%= setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
         <% }); %>
     );
 

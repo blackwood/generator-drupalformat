@@ -42,7 +42,7 @@ function <%= moduleName %>_variable_group_info() {
 /**
  * Call to variable information.
  */
-module_load_include('inc','<%= moduleName %>','settings/variable.instance');
+module_load_include('inc','<%= moduleName %>','settings/<%= moduleName %>_variable.instance');
 
 // @TODO Figure out whether needed or not? Probably not.
 /**
