@@ -94,7 +94,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
 
     console.log('\nAdd a setting');
 
-    var settingPrompts = [{
+    var prompts = [{
       type: 'input',
       name: 'settingProper',
       message: 'What is the proper name of the setting?',
@@ -180,7 +180,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
       default: true
     }];
 
-    this.prompt(settingPrompts, function (props) {
+    this.prompt(prompts, function (props) {
       this.settings = this.settings || [];
       var settingType = props.settingType;
       var settingImplType = props.settingType;
