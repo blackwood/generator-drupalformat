@@ -86,7 +86,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.relativeScriptpath = props.relativeScriptpath;
     this.relativeStylepath = props.relativeStylepath;
     this.license = props.license;
-    cb();
+    getSettings();
 
   }.bind(this));
 
