@@ -11,11 +11,7 @@ function <%= moduleName %>_variable_info($options) {
     'description' => t('<%= setting.settingDesc %>', array(), $options),
     'repeat' => array(
       'type' => '<%= setting.settingImplType %>',
-      <% if (setting.settingType === "String") { %>
-      'default' => '<%= setting.settingDefault %>',
-      <% } else { %>
       'default' => <%= setting.settingDefault %>,
-      <% } %>
     ),
     'group' => '<%= moduleName %>',
   );

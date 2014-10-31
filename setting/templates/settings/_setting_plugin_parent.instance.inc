@@ -14,15 +14,9 @@ function _<%= moduleName %>_return_parent_instance_settings($instance = '<%= mod
     $function = !module_exists('variable') ? 'variable_get' : 'variable_get_value';
 
     $settings = array(
-      <% _.each(settings, function (setting) { %>
-      <% if (setting.settingType === "Number") { %>
-      '<%= setting.settingName %>' => (int)$function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
-      <% } elseif (setting.settingType === "String") { %>
-      '<%= setting.settingName %>' => $function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
-      <% } else { %>
-      '<%= setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
-      <% } %>
-      <% }); %>
+        <% _.each(settings, function (setting) { %>
+            '<%= setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
+        <% }); %>
     );
 
     // Update settings cache.
