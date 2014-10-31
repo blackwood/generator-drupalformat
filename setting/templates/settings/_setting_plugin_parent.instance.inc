@@ -17,7 +17,7 @@ function _<%= moduleName %>_return_parent_instance_settings($instance = '<%= mod
       <% _.each(settings, function (setting) { %>
       <% if (setting.settingType === "Number") { %>
       '<%= setting.settingName %>' => (int)$function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
-      <% } elseif (setting.settingType === "String") { %>
+      <% } else if (setting.settingType === "String") { %>
       '<%= setting.settingName %>' => $function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
       <% } else { %>
       '<%= setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
