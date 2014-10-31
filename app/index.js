@@ -86,133 +86,18 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.relativeScriptpath = props.relativeScriptpath;
     this.relativeStylepath = props.relativeStylepath;
     this.license = props.license;
+
+    this.settingProper = "Test Name";
+    this.settingDesc = "This Setting Name";
+    this.settingName = "testName";
+    this.settingType = "boolean";
+    this.settingFunctionName = "test_name";
+    this.settingDefault = "FALSE";
+
     cb();
 
   }.bind(this));
 
-  function getSettings() {
-
-    console.log('\nAdd a setting');
-
-    var prompts = [{
-      type: 'input',
-      name: 'settingProper',
-      message: 'What is the proper name of the setting?',
-      default: 'Setting'
-    },
-    {
-      type: 'input',
-      name: 'settingDesc',
-      message: 'What is the description of the setting?',
-      default: 'Description of setting'
-    },
-    {
-      type: 'input',
-      name: 'settingName',
-      message: 'What is the (JavaScript) machine name of the setting?',
-      default: 'aSetting'
-    },
-    {
-      type: 'input',
-      name: 'settingFunction',
-      message: 'What should the snake_case function name be for this setting?',
-      default: 'a_setting'
-    },
-    {
-      type: 'list',
-      name: 'settingType',
-      message: 'What is the type of the attribute?',
-      choices: ['String', 'Number', 'Boolean'],
-      default: 'String'
-    },
-    {
-      when: function (props) { return (/String/).test(props.settingType); },
-      type: 'input',
-      name: 'minLength',
-      message: 'Enter the minimum length for the String setting, or hit enter:',
-      validate: function (input) {
-        if (input && isNaN(input)) {
-          return "Please enter a number.";
-        }
-        return true;
-      }
-    },
-    {
-      when: function (props) { return (/String/).test(props.settingType); },
-      type: 'input',
-      name: 'maxLength',
-      message: 'Enter the maximum length for the String setting, or hit enter:',
-      validate: function (input) {
-        if (input && isNaN(input)) {
-          return "Please enter a number.";
-        }
-        return true;
-      }
-    },
-    {
-      when: function (props) { return (/Number/).test(props.settingType); },
-      type: 'input',
-      name: 'min',
-      message: 'Enter the minimum value for the numeric setting, or hit enter:',
-      validate: function (input) {
-        if (input && isNaN(input)) {
-          return "Please enter a number.";
-        }
-        return true;
-      }
-    },
-    {
-      when: function (props) { return (/Number/).test(props.settingType); },
-      type: 'input',
-      name: 'max',
-      message: 'Enter the maximum value for the numeric setting, or hit enter:',
-      validate: function (input) {
-        if (input && isNaN(input)) {
-          return "Please enter a number.";
-        }
-        return true;
-      }
-    },
-    {
-      type: 'confirm',
-      name: 'again',
-      message: 'Would you like to enter another attribute or reenter a previous attribute?',
-      default: true
-    }];
-
-    this.prompt(prompts, function (props) {
-      this.settings = this.settings || [];
-      var settingType = props.settingType;
-      var settingImplType = props.settingType;
-      if (settingType === 'String') {
-        settingImplType = 'string';
-      } else if (settingType === 'Integer') {
-        settingImplType = 'int';
-      } else if (settingType === 'Boolean') {
-        settingImplType = 'boolean';
-      }
-      this.settings = _.reject(this.settings, function (setting) { return setting.settingName === props.settingName; });
-      this.settings.push({
-        settingProper: props.settingProper,
-        settingDesc: props.settingDesc,
-        settingName: props.settingName,
-        settingType: settingType,
-        settingImplType: settingImplType,
-        settingFunctionName: props.settingFunctionName,
-        settingDefault: props.settingDefault,
-        minLength: props.minLength,
-        maxLength: props.maxLength,
-        min: props.min,
-        max: props.max
-      });
-
-      if (props.again) {
-        this.getSettings();
-      } else {
-        cb();
-      }
-    }.bind(this));
-  }
 };
 
 DrupalformatGenerator.prototype.app = function app() {
