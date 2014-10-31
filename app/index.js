@@ -101,6 +101,14 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
 };
 
 DrupalformatGenerator.prototype.app = function app() {
+  this.settings = [];
+  this.generatorConfig = {
+    "baseName": this.baseName,
+    "settings": this.settings
+  };
+  this.generatorConfigStr = JSON.stringify(this.generatorConfig, null, '\t');
+
+  this.template('_generator.json', 'generator.json');
   var mn = this.moduleName;
 
   this.template('_template.api.php', mn + '.api.php');
