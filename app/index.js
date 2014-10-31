@@ -75,6 +75,7 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
   }];
 
   this.prompt(prompts, function (props) {
+
     this.moduleName = props.moduleName;
     this.moduleProper = props.moduleProper;
     this.libraryName = props.libraryName;
@@ -86,14 +87,6 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.relativeScriptpath = props.relativeScriptpath;
     this.relativeStylepath = props.relativeStylepath;
     this.license = props.license;
-
-    // this.settingProper = "Test Name";
-    // this.settingDesc = "This Setting Name";
-    // this.settingName = "testName";
-    // this.settingType = "boolean";
-    // this.settingFunctionName = "test_name";
-    // this.settingDefault = "FALSE";
-
     cb();
 
   }.bind(this));

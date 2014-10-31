@@ -127,7 +127,7 @@ SettingGroupGenerator.prototype.askFor = function askFor() {
     if (settingType === 'String') {
       settingImplType = 'string';
     } else if (settingType === 'Number') {
-      settingImplType = 'int';
+      settingImplType = 'number';
     } else if (settingType === 'Boolean') {
       settingImplType = 'boolean';
     }
