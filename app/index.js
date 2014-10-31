@@ -74,8 +74,6 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     default: 'Y/n'
   }];
 
-  getSettings();
-
   this.prompt(prompts, function (props) {
     this.moduleName = props.moduleName;
     this.moduleProper = props.moduleProper;
