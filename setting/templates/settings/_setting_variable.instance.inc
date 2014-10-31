@@ -9,10 +9,10 @@ function <%= moduleName %>_variable_info($options) {
 
     $variable['<%= moduleName %>_items_[instance_id]'] = array(
       'type' => 'multiple',
-      'title' => t('<%= settingName %>', array(), $options),
-      'description' => t('<%= settingDesc %>', array(), $options),
+      'title' => t('<%= setting.settingName %>', array(), $options),
+      'description' => t('<%= setting.settingDesc %>', array(), $options),
       'repeat' => array(
-        'type' => '<%= settingType %>',
+        'type' => '<%= setting.settingType %>',
         'default' => <%= settingDefault %>,
       ),
       'group' => '<%= moduleName %>',
