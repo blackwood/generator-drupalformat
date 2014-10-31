@@ -100,7 +100,7 @@ function <%= moduleName %>_initiate_instance($instance, $parent) {
 /**
  * Call to parent instance function
  */
-module_load_include('inc','<%= moduleName %>','<%= moduleName %>_settings/plugin_parent.instance');
+module_load_include('inc','<%= moduleName %>','settings/<%= moduleName %>_plugin_parent.instance');
 
 /**
  * Return array with key pair.
