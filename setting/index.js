@@ -136,7 +136,6 @@ SettingGroupGenerator.prototype.askFor = function askFor() {
       settingProper: props.settingProper,
       settingDesc: props.settingDesc,
       settingName: props.settingName,
-      settingDefault: props.settingDefault,
       settingType: settingType,
       settingImplType: settingImplType,
       settingFunctionName: props.settingFunctionName,
