@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Return <%= pluginProper %> settings array or default.
+ * Return settings array or default.
  *
  * @param string $instance
  *  Parent instance settings machine name.

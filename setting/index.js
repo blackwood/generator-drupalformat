@@ -156,7 +156,7 @@ SettingGroupGenerator.prototype.askFor = function askFor() {
 
 SettingGroupGenerator.prototype.files = function files() {
 
-  this.baseName = this.generatorConfig.baseName;
+  this.moduleName = this.generatorConfig.baseName;
   this.groups = this.generatorConfig.groups;
   this.groups = _.reject(this.groups, function (entity) { return group.name === this.name; }.bind(this));
   this.groups.push({ name: this.name, settings: this.settings});
@@ -167,6 +167,7 @@ SettingGroupGenerator.prototype.files = function files() {
   var setDir = 'settings/';
   this.mkdir(setDir);
   this.template('_generator.json', 'generator.json');
-  this.template('settings/_setting_plugin_parent.instance.inc', this.baseName + 'plugin_parent.instance.inc');
-  this.template('settings/_setting_variable.instance.inc', this.baseName + 'variable.instance.inc');
+  this.template('settings/_setting_plugin_parent.instance.inc', this.moduleName + 'plugin_parent.instance.inc');
+  this.template('settings/_setting_variable.instance.inc', this.moduleName + 'variable.instance.inc');
+
 };
