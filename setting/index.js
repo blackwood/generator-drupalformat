@@ -6,12 +6,12 @@ var util = require('util'),
     _s = require('underscore.string'),
     pluralize = require('pluralize');
 
-var EntityGenerator = module.exports = function EntityGenerator(args, options, config) {
+var SettingGenerator = module.exports = function SettingGenerator(args, options, config) {
   // By calling `NamedBase` here, we get the argument to the subgenerator call
   // as `this.name`.
   yeoman.generators.NamedBase.apply(this, arguments);
 
-  console.log('You called the entity subgenerator with the argument ' + this.name + '.');
+  console.log('You called the setting subgenerator with the argument ' + this.name + '.');
 
   fs.readFile('generator.json', 'utf8', function (err, data) {
     if (err) {
@@ -22,31 +22,49 @@ var EntityGenerator = module.exports = function EntityGenerator(args, options, c
   }.bind(this));
 };
 
-util.inherits(EntityGenerator, yeoman.generators.NamedBase);
+util.inherits(SettingGenerator, yeoman.generators.NamedBase);
 
-EntityGenerator.prototype.askFor = function askFor() {
+SettingGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
 
-  console.log('\nPlease specify an attribute:');
+  console.log('\nAdd a setting');
 
   var prompts = [{
     type: 'input',
-    name: 'attrName',
-    message: 'What is the name of the attribute?',
-    default: 'myattr'
+    name: 'settingProper',
+    message: 'What is the proper name of the setting?',
+    default: 'Setting'
+  },
+  {
+    type: 'input',
+    name: 'settingDesc',
+    message: 'What is the description of the setting?',
+    default: 'Description of setting'
+  },
+  {
+    type: 'input',
+    name: 'settingName',
+    message: 'What is the (JavaScript) machine name of the setting?',
+    default: 'aSetting'
+  },
+  {
+    type: 'input',
+    name: 'settingFunction',
+    message: 'What should the snake_case function name be for this setting?',
+    default: 'a_setting'
   },
   {
     type: 'list',
-    name: 'attrType',
+    name: 'settingType',
     message: 'What is the type of the attribute?',
-    choices: ['String', 'Integer', 'Float', 'Boolean', 'Date', 'Enum'],
+    choices: ['String', 'Number', 'Boolean'],
     default: 'String'
   },
   {
-    when: function (props) { return (/String/).test(props.attrType); },
+    when: function (props) { return (/String/).test(props.settingType); },
     type: 'input',
     name: 'minLength',
-    message: 'Enter the minimum length for the String attribute, or hit enter:',
+    message: 'Enter the minimum length for the String setting, or hit enter:',
     validate: function (input) {
       if (input && isNaN(input)) {
         return "Please enter a number.";
@@ -55,10 +73,10 @@ EntityGenerator.prototype.askFor = function askFor() {
     }
   },
   {
-    when: function (props) { return (/String/).test(props.attrType); },
+    when: function (props) { return (/String/).test(props.settingType); },
     type: 'input',
     name: 'maxLength',
-    message: 'Enter the maximum length for the String attribute, or hit enter:',
+    message: 'Enter the maximum length for the String setting, or hit enter:',
     validate: function (input) {
       if (input && isNaN(input)) {
         return "Please enter a number.";
@@ -67,10 +85,10 @@ EntityGenerator.prototype.askFor = function askFor() {
     }
   },
   {
-    when: function (props) { return (/Integer|Float/).test(props.attrType); },
+    when: function (props) { return (/Number/).test(props.settingType); },
     type: 'input',
     name: 'min',
-    message: 'Enter the minimum value for the numeric attribute, or hit enter:',
+    message: 'Enter the minimum value for the numeric setting, or hit enter:',
     validate: function (input) {
       if (input && isNaN(input)) {
         return "Please enter a number.";
@@ -79,41 +97,16 @@ EntityGenerator.prototype.askFor = function askFor() {
     }
   },
   {
-    when: function (props) { return (/Integer|Float/).test(props.attrType); },
+    when: function (props) { return (/Number/).test(props.settingType); },
     type: 'input',
     name: 'max',
-    message: 'Enter the maximum value for the numeric attribute, or hit enter:',
+    message: 'Enter the maximum value for the numeric setting, or hit enter:',
     validate: function (input) {
       if (input && isNaN(input)) {
         return "Please enter a number.";
       }
       return true;
     }
-  },
-  {
-    when: function (props) { return (/Date/).test(props.attrType); },
-    type: 'list',
-    name: 'dateConstraint',
-    message: 'Constrain the date as follows:',
-    choices: ['None', 'Past dates only', 'Future dates only'],
-    filter: function (input) {
-      if (/Past/.test(input)) return 'Past';
-      if (/Future/.test(input)) return 'Future';
-      return '';
-    },
-    default: 'None'
-  },
-  {
-    when: function (props) { return (/Enum/).test(props.attrType); },
-    type: 'input',
-    name: 'enumValues',
-    message: 'Enter an enumeration of values, separated by commas'
-  },
-  {
-    type: 'confirm',
-    name: 'required',
-    message: 'Is the attribute required to have a value?',
-    default: true
   },
   {
     type: 'confirm',
@@ -123,47 +116,40 @@ EntityGenerator.prototype.askFor = function askFor() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.attrs = this.attrs || [];
-    var attrType = props.attrType;
-    var attrImplType = props.attrType;
-    if (attrType === 'String') {
-      attrImplType = 'String';
-    } else if (attrType === 'Integer') {
-      attrImplType = 'Int';
-    } else if (attrType === 'Float') {
-      attrImplType = 'Double';
-    } else if (attrType === 'Boolean') {
-      attrImplType = 'Bool';
-    } else if (attrType === 'Date') {
-      // TODO: need to handle Date -> UTCTime JSON conversion
-      //attrImplType = 'UTCTime';
-      attrImplType = 'String';
-    } else if (attrType === 'Enum') {
-      attrImplType = 'String';
+    this.settings = this.settings || [];
+    var settingType = props.settingType;
+    var settingImplType = props.settingType;
+    if (settingType === 'String') {
+      settingImplType = 'string';
+    } else if (settingType === 'Integer') {
+      settingImplType = 'int';
+    } else if (settingType === 'Boolean') {
+      settingImplType = 'boolean';
     }
-    this.attrs = _.reject(this.attrs, function (attr) { return attr.attrName === props.attrName; });
-    this.attrs.push({ 
-      attrName: props.attrName, 
-      attrType: attrType, 
-      attrImplType: attrImplType,
+    this.settings = _.reject(this.settings, function (setting) { return setting.settingName === props.settingName; });
+    this.settings.push({
+      settingProper: props.settingProper,
+      settingDesc: props.settingDesc,
+      settingName: props.settingName,
+      settingType: settingType,
+      settingImplType: settingImplType,
+      settingFunctionName: props.settingFunctionName,
+      settingDefault: props.settingDefault,
       minLength: props.minLength,
       maxLength: props.maxLength,
       min: props.min,
-      max: props.max,
-      dateConstraint: props.dateConstraint,
-      enumValues: props.enumValues ? props.enumValues.split(',') : [],
-      required: props.required 
+      max: props.max
     });
 
     if (props.again) {
-      this.askFor();
+      this.getSettings();
     } else {
       cb();
     }
   }.bind(this));
 };
 
-EntityGenerator.prototype.files = function files() {
+SettingGenerator.prototype.files = function files() {
 
   this.baseName = this.generatorConfig.baseName;
   this.orm = this.generatorConfig.orm;
