@@ -167,6 +167,6 @@ SettingGroupGenerator.prototype.files = function files() {
   var setDir = 'settings/';
   this.mkdir(setDir);
   this.template('_generator.json', 'generator.json');
-  this.template('settings/_setting_plugin_parent.instance.inc', <%= moduleName %> + 'plugin_parent.instance.inc');
-  this.template('settings/_setting_variable.instance.inc', <%= moduleName %> + 'variable.instance.inc');
+  this.template('settings/_setting_plugin_parent.instance.inc', this.baseName + 'plugin_parent.instance.inc');
+  this.template('settings/_setting_variable.instance.inc', this.baseName + 'variable.instance.inc');
 };
