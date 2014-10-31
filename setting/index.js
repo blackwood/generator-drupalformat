@@ -142,7 +142,7 @@ SettingGenerator.prototype.askFor = function askFor() {
     });
 
     if (props.again) {
-      this.getSettings();
+      this.askFor();
     } else {
       cb();
     }
