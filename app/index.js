@@ -87,12 +87,12 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
     this.relativeStylepath = props.relativeStylepath;
     this.license = props.license;
 
-    this.settingProper = "Test Name";
-    this.settingDesc = "This Setting Name";
-    this.settingName = "testName";
-    this.settingType = "boolean";
-    this.settingFunctionName = "test_name";
-    this.settingDefault = "FALSE";
+    // this.settingProper = "Test Name";
+    // this.settingDesc = "This Setting Name";
+    // this.settingName = "testName";
+    // this.settingType = "boolean";
+    // this.settingFunctionName = "test_name";
+    // this.settingDefault = "FALSE";
 
     cb();
 

@@ -40,22 +40,9 @@ function <%= moduleName %>_variable_group_info() {
 }
 
 /**
- * Implements hook_variable_info().
+ * Call to variable information.
  */
-function <%= moduleName %>_variable_info($options) {
-  $variable['<%= moduleName %>_items_[instance_id]'] = array(
-    'type' => 'multiple',
-    'title' => t('<%= settingName %>', array(), $options),
-    'description' => t('<%= settingDesc %>', array(), $options),
-    'repeat' => array(
-      'type' => '<%= settingType %>',
-      'default' => <%= settingDefault %>,
-    ),
-    'group' => '<%= moduleName %>',
-  );
-
-  return $variable;
-}
+module_load_include('inc','<%= moduleName %>','settings/variable.instance');
 
 // @TODO Figure out whether needed or not? Probably not.
 /**

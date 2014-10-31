@@ -6,7 +6,7 @@ var util = require('util'),
     _s = require('underscore.string'),
     pluralize = require('pluralize');
 
-var SettingGenerator = module.exports = function SettingGenerator(args, options, config) {
+var SettingGroupGenerator = module.exports = function SettingGroupGenerator(args, options, config) {
   // By calling `NamedBase` here, we get the argument to the subgenerator call
   // as `this.name`.
   yeoman.generators.NamedBase.apply(this, arguments);
@@ -22,9 +22,9 @@ var SettingGenerator = module.exports = function SettingGenerator(args, options,
   }.bind(this));
 };
 
-util.inherits(SettingGenerator, yeoman.generators.NamedBase);
+util.inherits(SettingGroupGenerator, yeoman.generators.NamedBase);
 
-SettingGenerator.prototype.askFor = function askFor() {
+SettingGroupGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
 
   console.log('\nAdd a setting');
@@ -59,6 +59,11 @@ SettingGenerator.prototype.askFor = function askFor() {
     message: 'What is the type of the attribute?',
     choices: ['String', 'Number', 'Boolean'],
     default: 'String'
+  },
+  {
+    type: 'input',
+    name: 'settingDefault',
+    message: 'What is the default value?',
   },
   {
     when: function (props) { return (/String/).test(props.settingType); },
@@ -131,6 +136,7 @@ SettingGenerator.prototype.askFor = function askFor() {
       settingProper: props.settingProper,
       settingDesc: props.settingDesc,
       settingName: props.settingName,
+      settingDefault: props.settingDefault,
       settingType: settingType,
       settingImplType: settingImplType,
       settingFunctionName: props.settingFunctionName,
@@ -149,33 +155,19 @@ SettingGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-SettingGenerator.prototype.files = function files() {
+SettingGroupGenerator.prototype.files = function files() {
 
   this.baseName = this.generatorConfig.baseName;
-  this.orm = this.generatorConfig.orm;
-  this.entities = this.generatorConfig.entities;
-  this.entities = _.reject(this.entities, function (entity) { return entity.name === this.name; }.bind(this));
-  this.entities.push({ name: this.name, attrs: this.attrs});
+  this.groups = this.generatorConfig.groups;
+  this.groups = _.reject(this.groups, function (entity) { return group.name === this.name; }.bind(this));
+  this.groups.push({ name: this.name, settings: this.settings});
   this.pluralize = pluralize;
-  this.generatorConfig.entities = this.entities;
+  this.generatorConfig.groups = this.groups;
   this.generatorConfigStr = JSON.stringify(this.generatorConfig, null, '\t');
 
-  var srcDir = 'src/';
+  var setDir = 'settings/';
+  this.mkdir(setDir);
   this.template('_generator.json', 'generator.json');
-  this.template('../../app/templates/src/_Main.hs', srcDir + 'Main.hs');
-  this.template('../../app/templates/src/_Models.hs', srcDir + 'Models.hs');
-
-  var publicDir = 'public/';
-  var publicCssDir = publicDir + 'css/';
-  var publicJsDir = publicDir + 'js/';
-  var publicViewDir = publicDir + 'views/';
-  var publicEntityJsDir = publicJsDir + this.name + '/';
-  var publicEntityViewDir = publicViewDir + this.name + '/';
-  this.mkdir(publicEntityJsDir);
-  this.mkdir(publicEntityViewDir);
-  this.template('../../app/templates/public/_index.html', publicDir + 'index.html');
-  this.template('public/js/entity/_entity-controller.js', publicEntityJsDir + this.name + '-controller.js');
-  this.template('public/js/entity/_entity-router.js', publicEntityJsDir + this.name + '-router.js');
-  this.template('public/js/entity/_entity-service.js', publicEntityJsDir + this.name + '-service.js');
-  this.template('public/views/entity/_entities.html', publicEntityViewDir + pluralize(this.name) + '.html');
+  this.template('settings/_setting_plugin_parent.instance.inc', <%= moduleName %> + 'plugin_parent.instance.inc');
+  this.template('settings/_setting_variable.instance.inc', <%= moduleName %> + 'variable.instance.inc');
 };
