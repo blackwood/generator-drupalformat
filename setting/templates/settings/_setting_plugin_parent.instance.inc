@@ -14,9 +14,8 @@ function _<%= moduleName %>_return_parent_instance_settings($instance = '<%= mod
     $function = !module_exists('variable') ? 'variable_get' : 'variable_get_value';
 
     $settings = array(
-      // Okay, so here's an example of what we need:
         <% _.each(settings, function (setting) { %>
-            '<% setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= setting.moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
+            '<%= setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= setting.moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
         <% }); %>
     );
 

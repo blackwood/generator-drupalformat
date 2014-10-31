@@ -49,7 +49,7 @@ SettingGroupGenerator.prototype.askFor = function askFor() {
   },
   {
     type: 'input',
-    name: 'settingFunction',
+    name: 'settingFunctionName',
     message: 'What should the snake_case function name be for this setting?',
     default: 'a_setting'
   },
@@ -156,7 +156,7 @@ SettingGroupGenerator.prototype.askFor = function askFor() {
 
 SettingGroupGenerator.prototype.files = function files() {
 
-  this.moduleName = this.generatorConfig.baseName;
+  this.moduleName = this.name;
   this.groups = this.generatorConfig.groups;
   this.groups = _.reject(this.groups, function (group) { return group.name === this.name; }.bind(this));
   this.groups.push({ name: this.name, settings: this.settings});
@@ -167,7 +167,7 @@ SettingGroupGenerator.prototype.files = function files() {
   var setDir = 'settings/';
   this.mkdir(setDir);
   this.template('_generator.json', 'generator.json');
-  this.template('settings/_setting_plugin_parent.instance.inc', 'settings/' + this.moduleName + 'plugin_parent.instance.inc');
-  this.template('settings/_setting_variable.instance.inc', 'settings/' + this.moduleName + 'variable.instance.inc');
+  this.template('settings/_setting_variable.instance.inc', 'settings/' + this.moduleName + '_variable.instance.inc');
+  this.template('settings/_setting_plugin_parent.instance.inc', 'settings/' + this.moduleName + '_plugin_parent.instance.inc');
 
 };
