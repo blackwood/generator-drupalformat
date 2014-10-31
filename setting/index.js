@@ -158,7 +158,7 @@ SettingGroupGenerator.prototype.files = function files() {
 
   this.moduleName = this.generatorConfig.baseName;
   this.groups = this.generatorConfig.groups;
-  this.groups = _.reject(this.groups, function (entity) { return group.name === this.name; }.bind(this));
+  this.groups = _.reject(this.groups, function (group) { return group.name === this.name; }.bind(this));
   this.groups.push({ name: this.name, settings: this.settings});
   this.pluralize = pluralize;
   this.generatorConfig.groups = this.groups;
