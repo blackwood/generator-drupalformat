@@ -16,7 +16,7 @@ function _<%= moduleName %>_return_parent_instance_settings($instance = '<%= mod
     $settings = array(
       // Okay, so here's an example of what we need:
         <% _.each(settings, function (setting) { %>
-            '<% setting.settingName %>' => (<%= setting.settingType %>)$function('<%= setting.moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
+            '<% setting.settingName %>' => (<%= setting.settingImplType %>)$function('<%= setting.moduleName %>_<%= setting.settingFunctionName %>_' . $instance),
         <% }); %>
     );
 

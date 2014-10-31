@@ -12,7 +12,7 @@ function <%= moduleName %>_variable_info($options) {
       'title' => t('<%= setting.settingName %>', array(), $options),
       'description' => t('<%= setting.settingDesc %>', array(), $options),
       'repeat' => array(
-        'type' => '<%= setting.settingType %>',
+        'type' => '<%= setting.settingImplType %>',
         'default' => <%= setting.settingDefault %>,
       ),
       'group' => '<%= moduleName %>',

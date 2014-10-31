@@ -126,7 +126,7 @@ SettingGroupGenerator.prototype.askFor = function askFor() {
     var settingImplType = props.settingType;
     if (settingType === 'String') {
       settingImplType = 'string';
-    } else if (settingType === 'Integer') {
+    } else if (settingType === 'Number') {
       settingImplType = 'int';
     } else if (settingType === 'Boolean') {
       settingImplType = 'boolean';
@@ -167,7 +167,7 @@ SettingGroupGenerator.prototype.files = function files() {
   var setDir = 'settings/';
   this.mkdir(setDir);
   this.template('_generator.json', 'generator.json');
-  this.template('settings/_setting_plugin_parent.instance.inc', this.moduleName + 'plugin_parent.instance.inc');
-  this.template('settings/_setting_variable.instance.inc', this.moduleName + 'variable.instance.inc');
+  this.template('settings/_setting_plugin_parent.instance.inc', 'settings/' + this.moduleName + 'plugin_parent.instance.inc');
+  this.template('settings/_setting_variable.instance.inc', 'settings/' + this.moduleName + 'variable.instance.inc');
 
 };
