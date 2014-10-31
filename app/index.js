@@ -93,7 +93,6 @@ DrupalformatGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 
   function getSettings() {
-    var cb = this.async();
 
     console.log('\nAdd a setting');
 
