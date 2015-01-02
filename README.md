@@ -107,7 +107,7 @@ If you've choen number, you'll see these prompts.
 - `Enter the maximum length for the String setting, or hit enter:`
 
 Then you'll be prompted if you want to enter another settings value:
-- Would you like to enter another attribute or reenter a previous attribute?
+- `Would you like to enter another attribute or reenter a previous attribute?`
 
 When you're finished, you'll be asked if you want to overwrite generator.json, which is expected. Follow the prompt to overwrite.
 
