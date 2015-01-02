@@ -29,11 +29,61 @@ To install generator-drupalformat from npm, run:
 npm install -g generator-drupalformat
 ```
 
-Finally, initiate the generator:
+Finally, create your Drupal module folder somewhere in `sites/all/modules`, cd into it and run:
 
 ```bash
 yo drupalformat
 ```
+
+### Drupalformat-Specific Notes
+
+You'll be prompted by the generator for a few main things:
+
+Note: Machine names only allow lowercase letters and underscores.
+
+- `Module Name`
+(should be the same as folder, also is used as the machine name that precedes each hook)
+- `Proper name for your Module`
+The proper name, i.e. uppercase, spaces and punctuation allowed.
+- `Name of the plugin folder in sites/all/libraries:`
+This should be the name of the folder you plan on putting the external library you're integrating in. You can always change this value manually after the fact.
+- `Machine name for plugin`
+This will be stored within the code as a reference to the plugin, and certain functions will be namespaced with it. Feel free to reuse the module machine name, but unique values will make the code clearer.
+- `Proper name for Plugin`
+Again, this can be something different or the same as the module machine name, but a descriptive/unique name is preferred if you plan on modifying the generated code.
+- `Website for the Plugin`
+This is optional, but its always nice to give attribution, and hook_library() will register it. Make sure you read the license, if necessary, to ensure your generated module is not infringing.
+- `Relative Path inside library to the main JS file`
+For example, if the path to the plugin is sites/all/libraries/dist/plugin.min.js, you should just put /dist/plugin.min.js here. If you need to change the value later/add more files, see hook_library in the main module file.
+- `Relative Path inside library to the main CSS file`
+For example, if the path to the plugin is sites/all/libraries/dist/plugin.min.css, you should just put /dist/plugin.min.css here.
+- `name of the initialization method`
+For example if the initialization method is:
+```js
+$('#element').owlCarousel({ ... options ... });
+```
+... then you should put `owlCarousel` as the value.
+- `Required Main jQuery Version`
+Presuming that the plugin requires jQuery, which minimum jQuery version is required.
+If you don't require jQuery or don't want to check, simply remove the first 4 lines of the function initiate_instance() in the main .module file.
+- `add GPL2 license?`
+Optional, takes yes or no.
+
+After you've run the main generator, there's a subgenerator that handles the creation of the variables that the module should handle through the UI.
+Generally, this is meant to be for a JavaScript plugin that gets initialized with a JSON object of settings. If this doesn't fit your use case, you can feel free to forgo using the UI submodule entirely.
+
+This can't be run outside of the root directory of the module you've already generated.
+
+It takes one argument, which is the machine name of the module you've already provided.
+
+```bash
+yo drupalformat:setting [modulename]
+```
+
+Will get recursively called so you can add as many settings as required. The required options are:
+
+
+
 
 ### Getting To Know Yeoman
 
