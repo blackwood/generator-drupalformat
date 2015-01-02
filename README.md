@@ -74,16 +74,42 @@ Generally, this is meant to be for a JavaScript plugin that gets initialized wit
 
 This can't be run outside of the root directory of the module you've already generated.
 
-It takes one argument, which is the machine name of the module you've already provided.
+It takes one argument, which is the machine name of the module you've already provided. Again, this should be the same as your module folder name, as per Drupal conventions.
 
 ```bash
 yo drupalformat:setting [modulename]
 ```
 
-Will get recursively called so you can add as many settings as required. The required options are:
+This will get recursively called so you can add as many settings as required. The required options are:
 
+- `What is the proper name of the setting?`
+The user will see this name in the UI when altering this value.
+- `What is the description of the setting?`
+The user will see this description in the UI when altering this value.
+- `What is the (JavaScript) machine name of the setting?`
+This should be the same as it appears in the JSON initialization object.
+- `What should the snake_case function name be for this setting?`
+For use by PHP in function and table naming.
+- `What is the type of the attribute? `
+Here you'll be prompted to select one of these options:
+String
+Number
+Boolean
+- `What is the default value?`
+Provide a default value for the setting. This is useful if you want to provide defaults that the plugin doesn't have. You can also enter those values here if you wish.
 
+If you've chosen string, you'll see these prompts.
+- `Enter the minimum value for the numeric setting, or hit enter:`
+- `Enter the maximum value for the numeric setting, or hit enter:`
 
+If you've choen number, you'll see these prompts.
+- `Enter the minimum length for the String setting, or hit enter:`
+- `Enter the maximum length for the String setting, or hit enter:`
+
+Then you'll be prompted if you want to enter another settings value:
+- Would you like to enter another attribute or reenter a previous attribute?
+
+When you're finished, you'll be asked if you want to overwrite generator.json, which is expected. Follow the prompt to overwrite.
 
 ### Getting To Know Yeoman
 
