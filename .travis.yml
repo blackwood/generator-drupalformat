@@ -4,4 +4,3 @@ node_js:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-drupalformat' ]; then cd .. && eval "mv $currentfolder generator-drupalformat" && cd generator-drupalformat; fi
-
