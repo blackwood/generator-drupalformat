@@ -1,5 +1,5 @@
-# generator-drupalformat [![Build Status](https://secure.travis-ci.org/milesblackwood/generator-drupalformat.png?branch=master)](https://travis-ci.org/milesblackwood/generator-drupalformat)
-
+# generator-drupalformat
+<!-- [![Build Status](https://secure.travis-ci.org/milesblackwood/generator-drupalformat.png?branch=master)](https://travis-ci.org/milesblackwood/generator-drupalformat) -->
 > [Yeoman](http://yeoman.io) generator
 
 
