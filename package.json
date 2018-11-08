@@ -5,11 +5,6 @@
   "license": "MIT",
   "main": "app/index.js",
   "repository": "milesblackwood/generator-drupalformat",
-  "author": {
-    "name": "Miles",
-    "email": "milesblackwoodmusic@gmail.com",
-    "url": "https://github.com/milesblackwood"
-  },
   "engines": {
     "node": ">=0.10.0"
   },
